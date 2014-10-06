@@ -1,0 +1,2 @@
+# ignore the pyenv & pyenv virtualenv setup
+.python-version
