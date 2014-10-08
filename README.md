@@ -1,6 +1,6 @@
-# Dynamic Equation Builder and Solver (DEBS)
+## [Project Wiki Page](https://github.com/sandtrick/simple_solver)
 
-## Fast Equation Generation & Manipulation
+## Dynamic Equation Builder and Solver (DEBS)
 
 ### Goal
 
@@ -66,62 +66,6 @@ SymPy equation.
 Finally, the val is adjusted to reflect the desired dims. This
 can be done by dividing the val by the conversion dictionary value
 as opposed to multiplying.
-
-#### Back-End Structure
-##### Approach 1: Intro
-
-```
-def foo(arg1, arg2, *args):
-```
-or
-```
-def bar(arg1, arg2, **kwargs):
-```
-
-where args1 & 2 are the dependent variable and its
-desired dimensional output and *args are all other
-variables and their given dimensions.
-
-May use kwargs. The team is exploring the possibility
-of each equation being built into a dictionary. Each
-equation dictionary would contain the variable names
-as keys and their magnitude and dimension as values.
-
-The dictionaries with then be fed to a class or function
-that makes the dimensions uniform and solves for the
-dependent variable.
-
-
-##### Approach 2: Element class (branch varclass)
-
-Unlike Approach 1 where the dimension changing is handled by the
-equation class, each equation dictionary will contain values that
-are Element objects. it will look something like
-
-eq_dict = {str(sym1): ele1, str(sym2): ele2, etc...}
-
-The element objects will contain a symbol for sympy manipulations,
-a value to be substituted, and a dimension that when modified
-adds a multiplier to the value to keep it consistent
-
-this may be better than Approach 1 because it allows for the element
-class objects to be manipulated in other types of tools. by containing
-the dimensional consistency functions to an element the equation
-class will not need to contain the large amount of code needed
-to identify a variable's base dimension. The base dimension
-can be contained in the subclass of any element class.
-
-##### Super: Element(object)
-The Element superclass will contain a symbol, a value.
-It will it also contain all of the conversion dictionaries.
-Derived units (e.g.  N/m) will be inserted into the class
-as they are needed. The inclusion of this class will make
-
-
-##### Sub: [dim]  (e.g. Length(Element), Density(Element))
-The [dim] subclasses will contain
-
-
 
 ### Questions to Answer
 
