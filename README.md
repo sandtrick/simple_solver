@@ -1,4 +1,4 @@
-## [Project Wiki Page](https://github.com/sandtrick/simple_solver)
+## [Project Wiki Page](https://github.com/sandtrick/simple_solver/wiki)
 
 ## Dynamic Equation Builder and Solver (DEBS)
 
