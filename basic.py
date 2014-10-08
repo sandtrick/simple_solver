@@ -6,9 +6,7 @@ class Makecalc(object):
         self.dictionary = dictionary
 
     def dimcon(self, dictionary):
-        # makes all values dim con
-        for i in self.dictionary:
-            if i[1] not in base_units:
+        # makes all values dim conse
         # returns dimcon_dict
         pass
 
@@ -24,7 +22,7 @@ class Makecalc(object):
         print(self.equation)
         # sym = symbol(str(sym))
         print(solve(self.equation, sym))
-        return solve(self.equation, sym))
+        return solve(self.equation, sym)
 
 
     def uni_symfor(self):
