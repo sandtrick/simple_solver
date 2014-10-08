@@ -1,2 +1,4 @@
 # ignore the pyenv & pyenv virtualenv setup
 .python-version
+# ignore python cache
+__pycache__/

@@ -8,12 +8,13 @@ Pyenv and Virtualenv were installed and configured by following the guide here:
 http://davebehnke.com/python-pyenv-ubuntu.html
 
 #####useful cmds
-'''
-bash  
+
+bash
+```  
 pyenv install  
 pyenv versions  
 pyenv local [version]  
-'''
+```
 
 ####Additional Resources  
 **Pyenv**  
