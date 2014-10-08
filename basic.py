@@ -7,6 +7,8 @@ class Makecalc(object):
 
     def dimcon(self, dictionary):
         # makes all values dim con
+        for i in self.dictionary:
+            if i[1] not in base_units:
         # returns dimcon_dict
         pass
 
@@ -22,24 +24,31 @@ class Makecalc(object):
         print(self.equation)
         # sym = symbol(str(sym))
         print(solve(self.equation, sym))
+        return solve(self.equation, sym))
 
 
     def uni_symfor(self):
         # prints symfor in unicode
         pass
 
-    def solvefor(self, sym, dim):
+    def solvefor(self, sym):
         # calls symfor
+        self.symfor(sym)
         # sympy sub to substitute dimcon_dict into symfor's eq
+
         # adjusts final value to requested dim
         # return value and dim
-        pass
+
 
 x, F, T = symbols('x F T')
 moment = Eq(x*F, T)
-print(moment)
+# this works print(moment)
 moment_dict = {'x': (x, 'm'), 'F': (F, 'N'), 'T': (T, 'N*m')}
-print(moment_dict)
+# this works print(moment_dict)
 
 moment_eq = Makecalc(moment, moment_dict)
-moment_eq.symfor(x)
+
+
+#for i in moment_dict:
+#    print(moment_dict[i])
+moment_eq.solvefor(x)

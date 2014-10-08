@@ -61,6 +61,26 @@ solving.
 3. ???
 
 
+#### Idea 2: variable class (branch varclass)
+
+unlike idea 1 where the dimension changing is handled by the
+equation class, each equation dictionary will contain values that
+are variable objects. it will look something like
+
+eq_dict = {str(sym1): var1, str(sym2): var2, etc...}
+
+The variable objects will contain a symbol for sympy manipulations,
+a value to be substituted, and a dimension that when modified
+adds a multiplier to the value to keep it consistent
+
+this may be better than idea 1 because it allows for the variable
+class objects to be manipulated in other types of tools. by containing
+the dimensional consistency functions to a varclass the equation
+class will not need to contain the large amount of code needed
+to identify a variable's base dimension. The base dimension
+can be contained in the subclass of any variable class.
+
+
 ### Questions to Answer
 
 Can a class be __init__ with a function?
