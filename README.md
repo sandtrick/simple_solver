@@ -22,8 +22,53 @@ Optional:
 * Prints solution in unicode
 
 ### Method
+#### User Flow
 
-#### Idea 1: Intro
+| Front-End | Back-End |
+| :-------: | :------: |
+| select an equation to use | retrieve relevant cached equation object |
+| select variable to solve for | prompt for input of independent vars and dims |
+| input vals and dims | substitute vals and dims into equation |
+| select desired dims | convert dims |
+
+#### Back-End Flow Breakdown
+##### Equation Retrieval
+After an equation object is made it will be stored in a
+repository to be recalled when needed. The end goal is
+to have a data base of equations that can easily be manipulated
+with descriptions of their proper use and individual elements.
+
+##### Prompt for Independent Variable Data
+After the user selects the element they wish to solve for the
+back-end will use SymPy to rearrange the equation automatically.
+Then the symbols in needed for substitution will be detected
+and the back-end will prompt the user for the symbols' corresponding
+magnitudes and dimensions. The magnitudes and dimensions must
+be made consistent before the vals are substituted into the equation.
+
+##### Substitute Vals and Dims
+After the user inputs the independent variable information the
+back-end will substitute the adjusted vals into the equation using SymPy.
+Currently, the team is investigating the best way to contain
+the vals and dims data to comply with the project goals.
+
+It may be best to simply use a list or dictionary to contain
+the variable data since it will be only temporary and will not
+interfere with other equations that use the same variables.
+
+However, if this is the approach taken the team must discern
+how to relate the data to their corresponding symbols in the
+SymPy equation.
+
+
+##### Convert Dims
+
+Finally, the val is adjusted to reflect the desired dims. This
+can be done by dividing the val by the conversion dictionary value
+as opposed to multiplying.
+
+#### Back-End Structure
+##### Approach 1: Intro
 
 ```
 def foo(arg1, arg2, *args):
@@ -46,50 +91,58 @@ The dictionaries with then be fed to a class or function
 that makes the dimensions uniform and solves for the
 dependent variable.
 
-The team will be using SymPy to facilitate equation
-solving.
 
-#### Idea 1: Process Breakdown
+##### Approach 2: Element class (branch varclass)
 
-1. Build equation dictionary
-2. Feed dictionary to Function or class
-  1. uniform dimensions
-  2. make equation
-  3. solve for desired variable
-  4. convert variable value to desire units
-  5. output requested-variable's magnitude and dimension
-3. ???
-
-
-#### Idea 2: variable class (branch varclass)
-
-unlike idea 1 where the dimension changing is handled by the
+Unlike Approach 1 where the dimension changing is handled by the
 equation class, each equation dictionary will contain values that
-are variable objects. it will look something like
+are Element objects. it will look something like
 
-eq_dict = {str(sym1): var1, str(sym2): var2, etc...}
+eq_dict = {str(sym1): ele1, str(sym2): ele2, etc...}
 
-The variable objects will contain a symbol for sympy manipulations,
+The element objects will contain a symbol for sympy manipulations,
 a value to be substituted, and a dimension that when modified
 adds a multiplier to the value to keep it consistent
 
-this may be better than idea 1 because it allows for the variable
+this may be better than Approach 1 because it allows for the element
 class objects to be manipulated in other types of tools. by containing
-the dimensional consistency functions to a varclass the equation
+the dimensional consistency functions to an element the equation
 class will not need to contain the large amount of code needed
 to identify a variable's base dimension. The base dimension
-can be contained in the subclass of any variable class.
+can be contained in the subclass of any element class.
+
+##### Super: Element(object)
+The Element superclass will contain a symbol, a value.
+It will it also contain all of the conversion dictionaries.
+Derived units (e.g.  N/m) will be inserted into the class
+as they are needed. The inclusion of this class will make
+
+
+##### Sub: [dim]  (e.g. Length(Element), Density(Element))
+The [dim] subclasses will contain
+
 
 
 ### Questions to Answer
 
-Can a class be __init__ with a function?
-Can "   "     "    "      "  a dictionary?
-Should there be a module with "completed" objects (equations)?
+* Can a dictionary be passed to a function?  
+* Can a dictionary be passed to a class?  
+> yes.
+* Can a SymPy Eq() be passed to a class?
+> yes.
+* Should there be a module with "completed" objects (equations)?  
+> This would be nice. A module of equation objects would relieve
+> the need to create them every time. It would also prove useful
+> in an off-line app.
+* What is NumPy and would it provide any tools to simplify this
+project? If so, how?
+* If a file is moved with "git mv" in one branch does git have
+any conflicts if that branch is then merged with the master?
 
 
 ### Thoughts
 
-It would be nice to have each equation as in instance
+* It would be nice to have each equation as in instance
 of a class (object). Then each object can be cataloged
 for future use.
+* I need to learn how to create and use my own modules
