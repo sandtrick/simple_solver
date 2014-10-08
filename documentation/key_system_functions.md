@@ -15,7 +15,7 @@ Table 1
 Back-End Flow Breakdown
 --
 The Flow Breakdown is an exploration into *what* the back-end
-does. Additional documentation will provide *how*.
+does. To know *how*, look [here]().
 
 #### Equation Retrieval
 After an equation object is made it will be stored in a
