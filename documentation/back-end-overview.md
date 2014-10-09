@@ -40,7 +40,10 @@
 > sorts of derived-unit conversions must be entered entered
 > by the programmer.
 
-##### 2. Dimensions do not identify their own common base dimension.
+##### 2. ~~Dimensions do not identify their own common base dimension.~~
+
+> _**This issue has been resolved by use of ```eq_dict```. When the ```eq_dict``` is
+> entered its items list base units for each key**_
 
 > The ```dimcon``` method can use the dimcon_dict to change the values
 > of variable, but it currently has no way to tell the variable
@@ -65,7 +68,22 @@
 > 3. Would it be a better use of time to build an class that deals
 > directly with the short comings of the equation class?
 
-##### 3.
+##### 3. Difficulty Managing dimcon_dict
+
+> _**For the moment this will be tolerated and some sort of ```dimcon_dict```
+> key check will be implemented to allow the programmer to easily
+> check if ```dimcon_dict``` already contains a conversion.**_
+
+> As more equations are added the dimcon_dict will need to accommodate
+> the conversion factors for an ever increasing number of dimensions.
+> Most generic equations share the same types dimensions; this should
+> allow the number of dimcon_dict keys to 'level off' at some point.
+>
+> In the future it may be possible to break ```dimcon_dict```
+> into ```dimcon_dicts``` which would be a list of conversion dictionaries
+> divided into dimensional types (eg. length, temperature, mass, etc).
+> This also presents its challenges as dimensions of an esoteric nature
+> would be difficult to categorize. 
 
 
 ## Approach A: A with conversion types
