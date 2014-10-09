@@ -1,10 +1,8 @@
 # Back-End Approaches
-
+---
 ## Approach A
-notes: does not account for user-define derived-units. all derived
-unit conversions must be entered by the programmer in ```dimcon_dict```
 
-##**equation class**
+###**equation class**
 * contains ```dimcon_dict``` {'m': 1, 'ft': 0.3048, etc}, which includes EVERY CONVERSION
 * initialize w/ (self, Eq(), eq_dict)
     * ```eq_dict``` is vanilla. ```{'x': (x, 'm'), 'F': (F, 'N'), 'W':  (W, 'J')}```
@@ -19,7 +17,7 @@ unit conversions must be entered by the programmer in ```dimcon_dict```
         * prompt each ```eq_dict``` key. user gives (val, 'unit') items
         * inputed tuples are saved as items in ```in_dict```.
         * ```in_dict``` now looks like {'x': (val1, 'units1'), 'F': (val2, 'units2'), etc}
-    * convert input vars
+    * dimcon
         * (self)
         * compare ```in_dict[key][1]``` to ```dimcon_dict``` keys.
         * when they match ```in_dict[key][0]``` is *multiplied* by ```dimcon_dict[key]```
@@ -31,11 +29,51 @@ unit conversions must be entered by the programmer in ```dimcon_dict```
         * ```in_dict``` vals are substituted into corresponding symbols in solved Eq()
         * answer is converted to units by *dividing* by ```dimcon_dict[key]```  
 
+### Draw Backs of Approach A
 
-### Approach B: A with conversion types
+##### 1. Does not account for user-define derived-units.
+
+> All derived unit conversions (eg 'ft\*lbs' to 'N\*m') must be
+> entered by the programmer manually. This approach does not
+> allow a user to use whatever silly dimensions that may fit
+> their needs (whether they are 'in*kips' or 'slugs') and all
+> sorts of derived-unit conversions must be entered entered
+> by the programmer.
+
+##### 2. Dimensions do not identify their own common base dimension.
+
+> The ```dimcon``` method can use the dimcon_dict to change the values
+> of variable, but it currently has no way to tell the variable
+> what its base units are. For example, if x = 5 feet the dimcon
+> method can currently convert x to x = 1.524 feet when it should
+> read x = 1.524 meters. This is technically not an issue because
+> when the ```solvefor``` method calls ```in_dict``` for values it will
+> assumes that all of the values have been converted to base units.
+> This allows the ```solvefor``` method to convert the value to the
+> be consistent with the desired dimensions by simply dividing the
+> value by the item of the key in ```in_dict``` that shares the same
+> name.
+
+> This is mainly considered a problem for the class in general as
+> it hinders the flexibility of the class in other applications. If
+> the system ever required a simple conversion tool an equation and dictionary
+> must be entered. This begs the question:
+
+> 1. If a simple conversion tool was made would we want to use this class?
+> 2. If not, would it be better to build a conversion class that could be easily
+> integrated into/work with this one?
+> 3. Would it be a better use of time to build an class that deals
+> directly with the short comings of the equation class?
+
+##### 3.
 
 
-### Approach C
+## Approach A: A with conversion types
+
+
+---
+
+## Approach C
 
 element class
 * initialize w/ (self, magnitude, units)
