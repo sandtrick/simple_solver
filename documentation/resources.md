@@ -28,6 +28,12 @@ Popular Git commands:
 | git commit -m'<string>' | record changes to the repository with a message |
 | git mv <source> <destination> | move or rename a file, a directory, or a symlink |
 
+**Python**
+[Special Class Methods](http://www.diveintopython.net/object_oriented_framework/special_class_methods.html)
+[Function Decorators](http://thecodeship.com/patterns/guide-to-python-function-decorators/)
+[Difference between @staticmethod and @classmethod](http://www.pythoncentral.io/difference-between-staticmethod-and-classmethod-in-python/)
+
+
 
 ## Virtualenv Setup
 

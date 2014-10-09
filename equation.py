@@ -1,12 +1,20 @@
 from sympy import *
 
 class Equation(object):
+    # number of instances of the Equation class
+    no_inst = 0
     # dimcon_dict items convert keys to base units when multiplied
     dimcon_dict = {'ft': 0.3048, 'lbf': 4.4482, 'ft*lbf': 1.3558}
     in_dict = {}
     def __init__(self, equation, eq_dict):
         self.equation = equation
         self.eq_dict = eq_dict
+        Equation.no_inst = Equation.no_inst + 1
+
+    @classmethod
+    def get_no_equations(cls):
+        # number of instances of the Equation class
+        return cls.no_inst
 
     def clear_inputs(self):
         # makes in_dict = {}
@@ -25,7 +33,7 @@ class Equation(object):
                 known_units = input("Units of {}: ".format(key))
                 known_data = [known_val, known_units]
                 self.in_dict[key]= known_data
-        #print(self.in_dict)
+        print(self.in_dict)
         return self.in_dict
 
     def get_vars(self, get):
@@ -44,23 +52,34 @@ class Equation(object):
                 self.in_dict[key][1] = self.eq_dict[key][1]
             else:
                 print('Conversion not stored')
-                # need to change units to base units somehow
-                # elements need way to auto-recognize their base unit type
-                # perhaps dimcon method can just activate an element method
-                # that tells ele's to change value to correspond to a unittobase conversion
-                # self.in_dict[key][1] = self.dimcon_dict[self.in_dict[key][1]]
         print(self.in_dict)
+        return self.in_dict
+
+    def arrange(self, get):
+        # this method may not even be necessary
+        # solves for get  ...and converts to units
+        # sympy equation for get
+        order = solve(self.equation, get)
+        print(order)
+        return order
 
     def solvefor(self, get, get_units):
-        # solves for get sym in and converts to units
+        # substitute in_dict values. converts to desired dimensions
         # make get_units a str (to use on a website make get & _units attached
         # to dropdown tabs that show only keys stored in dimcon_dict)
-        get_units = str(get_units)
-        # sympy equation for get
-        arrange = solve(self.equation, get)
-        print(arrange)
-        # sympy sub to substitute dimcon_dict into symfor's eq
-        return arrange
+        # clear_inputs --> input_vars --> dimcon --> arrange
+        self.clear_inputs()
+        self.input_vars(get)
+        self.dimcon()
+        get = str(get)
+        # get_units = str(get_units)
+                # sympy sub to substitute dimcon_dict into symfor's eq
+        sub_vals = []
+        for key in self.eq_dict:
+            if key is not get:
+                sub_vals.append((self.eq_dict[key][0], self.in_dict[key][0]))
+        base_sol = order.sub(sub_vals)
+        print(base_sol)
         # adjusts final value to requested dim
         # return value and dim
 
@@ -78,6 +97,7 @@ work = Equation(work_eq, work_dict)
 # work.clear_inputs()
 
 # input all vars but x
-work.input_vars(W)
-work.dimcon()
-# work.solvefor(x, 'ft')
+#work.input_vars(W)
+#work.dimcon()
+#work.arrange(x)
+work.solvefor(x, 'ft')
