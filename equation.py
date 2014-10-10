@@ -87,11 +87,12 @@ class Equation(object):
             base_sol = solve(subd_eq, get)
             # need to convert base_sol's list output to correct units
             # make it a float accurate up to the thousands place
-            #answer = ceil(1000*base_sol[0]/self.dimcon_dict[get_units])/1000
-            answer = base_sol[0]/self.dimcon_dict[get_units]
+            answer = ceil(1000*base_sol[0]/self.dimcon_dict[get_units])/1000
+            #answer = base_sol[0]/self.dimcon_dict[get_units]
             print(answer)
             return answer
 
+##### Soon these will be function to speed process further
 # creates symbols for equation
 x, F, W = symbols('x F W')
 # makes equation
@@ -101,4 +102,4 @@ work_dict = {'x': (x, 'm'), 'F': (F, 'N'), 'W': (W, 'N*m')}
 # equation and units linked together in Equation class
 work = Equation(work_eq, work_dict)
 # solves equation for specified variable in desired units
-work.solvefor(W, 'ft*lbf')
+work.solvefor(x, 'ft')
