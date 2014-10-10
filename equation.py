@@ -68,25 +68,29 @@ class Equation(object):
         # make get_units a str (to use on a website make get & _units attached
         # to dropdown tabs that show only keys stored in dimcon_dict)
         # clear_inputs --> input_vars --> dimcon --> arrange
-        self.clear_inputs()
-        self.input_vars(get)
-        self.dimcon()
-        get = str(get)
-        # get_units = str(get_units)
-        # solve for get
-        arrange = solve(self.equation, get)
-        # sympy sub to substitute dimcon_dict into symfor's eq
-        sub_vals = []
-        for key in self.eq_dict:
-            if key is not get:
-                sub_vals.append((self.eq_dict[key][0], self.in_dict[key][0]))
-        subd_eq = self.equation.subs(sub_vals)
-        base_sol = solve(subd_eq, get)
-        # need to convert base_sol's list output to correct units
-        # make it a float accurate up to the thousands place
-        answer = ceil(1000*base_sol[0]/self.dimcon_dict[get_units])/1000
-        print(answer)
-        return answer
+        if get_units not in self.dimcon_dict:
+            print('Equati does not currently support the dimension: {}'.format(get_units))
+        else:
+            self.clear_inputs()
+            self.input_vars(get)
+            self.dimcon()
+            get = str(get)
+            # get_units = str(get_units)
+            # solve for get
+            arrange = solve(self.equation, get)
+            # sympy sub to substitute dimcon_dict into symfor's eq
+            sub_vals = []
+            for key in self.eq_dict:
+                if key is not get:
+                    sub_vals.append((self.eq_dict[key][0], self.in_dict[key][0]))
+            subd_eq = self.equation.subs(sub_vals)
+            base_sol = solve(subd_eq, get)
+            # need to convert base_sol's list output to correct units
+            # make it a float accurate up to the thousands place
+            #answer = ceil(1000*base_sol[0]/self.dimcon_dict[get_units])/1000
+            answer = base_sol[0]/self.dimcon_dict[get_units]
+            print(answer)
+            return answer
 
 # creates symbols for equation
 x, F, W = symbols('x F W')
@@ -97,4 +101,4 @@ work_dict = {'x': (x, 'm'), 'F': (F, 'N'), 'W': (W, 'N*m')}
 # equation and units linked together in Equation class
 work = Equation(work_eq, work_dict)
 # solves equation for specified variable in desired units
-work.solvefor(F, 'lbf')
+work.solvefor(W, 'ft*lbf')
