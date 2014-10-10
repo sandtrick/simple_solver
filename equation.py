@@ -1,4 +1,5 @@
 from sympy import *
+from math import ceil
 
 class Equation(object):
     # number of instances of the Equation class
@@ -16,14 +17,19 @@ class Equation(object):
         # number of instances of the Equation class
         return cls.no_inst
 
+    @staticmethod
+    def round_to_thousandth(num):
+        num = ceil(num*1000)/1000
+        return num
+
     def check_dimcon(self, key):
         # pass a key to to method and it checks the dimcon_dict to see if it exists
+        # a class method?
         pass
 
     def clear_inputs(self):
         # makes in_dict = {}
         self.in_dict = {}
-        print(self.in_dict)
         return self.in_dict
 
     def input_vars(self, get):
@@ -37,7 +43,6 @@ class Equation(object):
                 known_units = input("Units of {}: ".format(key))
                 known_data = [known_val, known_units]
                 self.in_dict[key]= known_data
-        print(self.in_dict)
         return self.in_dict
 
     def get_vars(self, get):
@@ -56,16 +61,7 @@ class Equation(object):
                 self.in_dict[key][1] = self.eq_dict[key][1]
             else:
                 print('Conversion not stored')
-        print(self.in_dict)
         return self.in_dict
-
-    def arrange(self, get):
-        # this method may not even be necessary
-        # solves for get  ...and converts to units
-        # sympy equation for get
-        order = solve(self.equation, get)
-        print(order)
-        return order
 
     def solvefor(self, get, get_units):
         # substitute in_dict values. converts to desired dimensions
@@ -77,31 +73,28 @@ class Equation(object):
         self.dimcon()
         get = str(get)
         # get_units = str(get_units)
-                # sympy sub to substitute dimcon_dict into symfor's eq
+        # solve for get
+        arrange = solve(self.equation, get)
+        # sympy sub to substitute dimcon_dict into symfor's eq
         sub_vals = []
         for key in self.eq_dict:
             if key is not get:
                 sub_vals.append((self.eq_dict[key][0], self.in_dict[key][0]))
-        base_sol = order.sub(sub_vals)
-        print(base_sol)
-        # adjusts final value to requested dim
-        # return value and dim
+        subd_eq = self.equation.subs(sub_vals)
+        base_sol = solve(subd_eq, get)
+        # need to convert base_sol's list output to correct units
+        # make it a float accurate up to the thousands place
+        answer = ceil(1000*base_sol[0]/self.dimcon_dict[get_units])/1000
+        print(answer)
+        return answer
 
-
+# creates symbols for equation
 x, F, W = symbols('x F W')
+# makes equation
 work_eq = Eq(x*F, W)
-# this works print(moment)
+# dictionary attaches base-units to symbols
 work_dict = {'x': (x, 'm'), 'F': (F, 'N'), 'W': (W, 'N*m')}
-# this works print(moment_dict)
-
+# equation and units linked together in Equation class
 work = Equation(work_eq, work_dict)
-#for i in work_dict:
-#    print(work_dict[i])
-# clear inputs functions
-# work.clear_inputs()
-
-# input all vars but x
-#work.input_vars(W)
-#work.dimcon()
-#work.arrange(x)
+# solves equation for specified variable in desired units
 work.solvefor(x, 'ft')
