@@ -16,6 +16,10 @@ class Equation(object):
         # number of instances of the Equation class
         return cls.no_inst
 
+    def check_dimcon(self, key):
+        # pass a key to to method and it checks the dimcon_dict to see if it exists
+        pass
+
     def clear_inputs(self):
         # makes in_dict = {}
         self.in_dict = {}
