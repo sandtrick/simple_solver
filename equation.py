@@ -97,4 +97,4 @@ work_dict = {'x': (x, 'm'), 'F': (F, 'N'), 'W': (W, 'N*m')}
 # equation and units linked together in Equation class
 work = Equation(work_eq, work_dict)
 # solves equation for specified variable in desired units
-work.solvefor(x, 'ft')
+work.solvefor(F, 'lbf')
