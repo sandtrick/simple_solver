@@ -83,7 +83,7 @@
 > into ```dimcon_dicts``` which would be a list of conversion dictionaries
 > divided into dimensional types (eg. length, temperature, mass, etc).
 > This also presents its challenges as dimensions of an esoteric nature
-> would be difficult to categorize. 
+> would be difficult to categorize.
 
 
 ## Approach A: A with conversion types
@@ -98,3 +98,15 @@ element class
 * methods
     * convert units to base
     * convert to base to units
+
+
+## Table of contents
+
+| In No Particular Order |
+| ----------------- |
+| [Read Me](https://github.com/sandtrick/simple_solver)|
+| [Introduction](https://github.com/sandtrick/simple_solver/blob/master/documentation/introduction.md) |
+| [Getting Started](https://github.com/sandtrick/simple_solver/blob/master/documentation/getting_started.md) |
+| [Key System Functions](https://github.com/sandtrick/simple_solver/blob/master/documentation/key_system_functions.md) |
+| [Back-End Overview](https://github.com/sandtrick/simple_solver/blob/master/documentation/back-end-overview.md) |
+| [Project Resources](https://github.com/sandtrick/simple_solver/blob/master/documentation/back-end-overview.md) |

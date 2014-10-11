@@ -10,6 +10,9 @@ class Equation(object):
     def __init__(self, equation, eq_dict):
         self.equation = equation
         self.eq_dict = eq_dict
+        #for key in self.eq_dict:
+        #    self.eq_dict[key][0] = symbols(str(self.eq_dict[key][0]))
+        #    print('i made a symbol')
         Equation.no_inst = Equation.no_inst + 1
 
     @classmethod
@@ -92,14 +95,33 @@ class Equation(object):
             print(answer)
             return answer
 
+#def mksyms(dict):
+#    for i in dict:
+#        dict[i][0] = Symbol(dict[i][0])
+#    print(dict)
+#    return dict
+
+#test_dict = {'x': ['x', 'm'], 'F': ['F', 'N'], 'W': ['W', 'N*m']}
+#mksyms(test_dict)
+
+#def mkequ(func):
+#    pass
+
+
+
 ##### Soon these will be function to speed process further
 # creates symbols for equation
-x, F, W = symbols('x F W')
-# makes equation
-work_eq = Eq(x*F, W)
 # dictionary attaches base-units to symbols
-work_dict = {'x': (x, 'm'), 'F': (F, 'N'), 'W': (W, 'N*m')}
+# makes equation
+#work_eq = Eq(x*F, W)
+#work_dict = {'x': ['x', 'm'], 'F': ['F', 'N'], 'W': ['W', 'N*m']}
 # equation and units linked together in Equation class
-work = Equation(work_eq, work_dict)
+#work = Equation(work_eq, work_dict)
 # solves equation for specified variable in desired units
-work.solvefor(x, 'ft')
+#work.solvefor(x, 'ft')
+
+
+#test_eq = Eq(x+y, F)
+#test_dict = {'x': (x, 'm'), 'y': (y, 'N'), 'F': (F, 'N*m')}
+#test = Equation(test_eq, test_dict)
+#test.solvefor(x, 'ft')
