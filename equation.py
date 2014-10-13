@@ -5,7 +5,7 @@ class Equation(object):
     # number of instances of the Equation class
     no_inst = 0
     # dimcon_dict items convert keys to base units when multiplied
-    dimcon_dict = {'ft': 0.3048, 'lbf': 4.4482, 'ft*lbf': 1.3558}
+    dimcon_dict = {'m': 1, 'N': 1, 'N*m': 1, 'ft': 0.304800609601, 'lbf': 4.44822162, 'ft*lbf': 1.35581795}
     in_dict = {}
     def __init__(self, equation, eq_dict):
         self.equation = equation
@@ -42,7 +42,7 @@ class Equation(object):
         get = str(get)
         for key in self.eq_dict:
             if key is not get:
-                known_val = int(input("Value of {}: ".format(key)))
+                known_val = float(input("Value of {}: ".format(key)))
                 known_units = input("Units of {}: ".format(key))
                 known_data = [known_val, known_units]
                 self.in_dict[key]= known_data
@@ -105,4 +105,4 @@ work_dict = {'x': (x, 'm'), 'F': (F, 'N'), 'W': (W, 'N*m')}
 # equation and units linked together in Equation class
 work = Equation(work_eq, work_dict)
 # solves equation for specified variable in desired units
-work.solvefor(x, 'ft')
+work.solvefor(W, 'ft*lbf')
