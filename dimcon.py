@@ -71,5 +71,11 @@ volume = {'m^3': 1, 'Mm^3': 10**18, 'km^3': 10**9,
 
 
 # does not include temperature
-dimconlib = [acceleration, angle, area, energy, force, length, mass, pressure,
- time, velocity, volume]
+dicts = (acceleration, angle, area, energy, force, length, mass, pressure,
+ time, velocity, volume)
+
+# dimconlib is a big dictionary made from the smaller dictionaries in dictlist
+dimconlib = {k:v for d in dicts for k, v in d.items()}
+for i in dicts:
+    print(len(i))
+print(len(dimconlib))
