@@ -2,3 +2,6 @@
 .python-version
 # ignore python cache
 __pycache__/
+
+# ignore javascript unit conversion
+Unit_Conversion.js
