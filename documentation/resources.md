@@ -4,11 +4,13 @@ to information that proved useful.
 
 ## Project Environment
 
-**Python**
+**Python**  
 [Special Class Methods](http://www.diveintopython.net/object_oriented_framework/special_class_methods.html)  
 [Function Decorators](http://thecodeship.com/patterns/guide-to-python-function-decorators/)  
 [Name Spaces and Decorators](http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/)  
 [Difference between @staticmethod and @classmethod](http://www.pythoncentral.io/difference-between-staticmethod-and-classmethod-in-python/)  
+[Intro to Dictionaries](http://openbookproject.net/thinkcs/python/english3e/dictionaries.html)  
+
 
 **Pyenv**  
 [Pyenv-Virtualenv Install Guide](http://davebehnke.com/python-pyenv-ubuntu.html)  
