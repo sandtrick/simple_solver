@@ -1,7 +1,10 @@
 # ignore the pyenv & pyenv virtualenv setup
 .python-version
-# ignore python cache
+# ignore python cache directory
 __pycache__/
 
 # ignore javascript unit conversion
 Unit_Conversion.js
+
+# ignore the unit_test directory
+unit_tests/

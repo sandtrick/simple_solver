@@ -6,6 +6,7 @@ class Formula(object):
     # number of instances of the Equation class
     no_inst = 0
     # dimcon.dimcon_dict items convert keys to base units when multiplied
+
     in_dict = {}
     def __init__(self, equation, eq_dict):
         self.equation = equation
@@ -57,10 +58,10 @@ class Formula(object):
     def dimcon(self):
         # all units made dimensionally consistent
         # checks if unit is in dimcon.dimcon_dict. if not prints "Conversion not Stored"
-        # compares in_dict[key][0] ro dimcon.dimcon_dict[key]
+        # compares in_dict[key][0] to dimcon.dimcon_dict[key]
         for key in self.in_dict:
-            if self.in_dict[key][1] in dimcon.dimcon_dict:
-                self.in_dict[key][0] = self.in_dict[key][0]*dimcon.dimcon_dict[self.in_dict[key][1]]
+            if any(d[key] == self.in_dict[key][1] for d in dimcon.dimconlib):
+                self.in_dict[key][0] = self.in_dict[key][0]*d[self.in_dict[key][1]]
                 self.in_dict[key][1] = self.eq_dict[key][1]
             else:
                 print('Conversion not stored')
@@ -71,7 +72,7 @@ class Formula(object):
         # make get_units a str (to use on a website make get & _units attached
         # to dropdown tabs that show only keys stored in dimcon.dimcon_dict)
         # clear_inputs --> input_vars --> dimcon --> arrange
-        if get_units not in dimcon.dimcon_dict:
+        if any(d[key] ==  for d in dimcon.dimconlib):
             print('Equati does not currently support the dimension: {}'.format(get_units))
         else:
             self.clear_inputs()
