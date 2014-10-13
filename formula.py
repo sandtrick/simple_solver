@@ -59,8 +59,8 @@ class Formula(object):
         # checks if unit is in dimcon.dimcon_dict. if not prints "Conversion not Stored"
         # compares in_dict[key][0] to dimcon.dimcon_dict[key]
         for key in self.in_dict:
-            if any(d[key] == self.in_dict[key][1] for d in dimcon.dimconlib):
-                self.in_dict[key][0] = self.in_dict[key][0]*d[self.in_dict[key][1]]
+            if self.in_dict[key][1] in dimcon.dimconlib:
+                self.in_dict[key][0] = self.in_dict[key][0]*dimcon.dimconlib[self.in_dict[key][1]]
                 self.in_dict[key][1] = self.eq_dict[key][1]
             else:
                 print('Conversion not stored')
@@ -71,7 +71,7 @@ class Formula(object):
         # make get_units a str (to use on a website make get & _units attached
         # to dropdown tabs that show only keys stored in dimcon.dimcon_dict)
         # clear_inputs --> input_vars --> dimcon --> arrange
-        if any(d[key] ==  for d in dimcon.dimconlib):
+        if get_units not in dimcon.dimconlib:
             print('Equati does not currently support the dimension: {}'.format(get_units))
         else:
             self.clear_inputs()
@@ -90,7 +90,7 @@ class Formula(object):
             base_sol = solve(subd_eq, get)
             # need to convert base_sol's list output to correct units
             # make it a float accurate up to the thousands place
-            answer = ceil(1000*base_sol[0]/dimcon.dimcon_dict[get_units])/1000
+            answer = ceil(1000*base_sol[0]/dimcon.dimconlib[get_units])/1000
             #answer = base_sol[0]/self.dimcon.dimcon_dict[get_units]
             print(answer)
             return answer
@@ -105,4 +105,4 @@ work_dict = {'x': (x, 'm'), 'F': (F, 'N'), 'W': (W, 'N*m')}
 # equation and units linked together in Equation class
 work = Formula(work_eq, work_dict)
 # solves equation for specified variable in desired units
-work.solvefor(W, 'N*m')
+work.solvefor(W, 'J')

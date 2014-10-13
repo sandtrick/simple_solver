@@ -78,10 +78,16 @@ dicts = (acceleration, angle, area, energy, force, length, mass, pressure,
 dimconlib = {k:v for d in dicts for k, v in d.items()}
 
 def compck(listofdicts, compressdicts):
-    count = 0
+    # it is possible for some values to be overwritten
+    # with dictionary compression. This function checks
+    # number of keys and values before and after compression.
+    # in the future it should also check to makes sure
+    # all items are the same.
+    kcount = 0
+    vcount = 0
     for i in listofdicts:
-        count += len(i)
-    print('Key Count Before Compression:', count)
-    print('Key Count After Compression:',len(compressdicts))
+        kcount += len(i)
+    print('Key, Value Count Before Compression:', kcount, vcount)
+    print('Key, Value Count After Compression:',len(compressdicts))
 
 #compck(dicts, dimconlib)
