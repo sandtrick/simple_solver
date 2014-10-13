@@ -6,7 +6,6 @@ class Formula(object):
     # number of instances of the Equation class
     no_inst = 0
     # dimcon.dimcon_dict items convert keys to base units when multiplied
-
     in_dict = {}
     def __init__(self, equation, eq_dict):
         self.equation = equation
