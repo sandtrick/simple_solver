@@ -76,6 +76,12 @@ dicts = (acceleration, angle, area, energy, force, length, mass, pressure,
 
 # dimconlib is a big dictionary made from the smaller dictionaries in dictlist
 dimconlib = {k:v for d in dicts for k, v in d.items()}
-for i in dicts:
-    print(len(i))
-print(len(dimconlib))
+
+def compck(listofdicts, compressdicts):
+    count = 0
+    for i in listofdicts:
+        count += len(i)
+    print('Key Count Before Compression:', count)
+    print('Key Count After Compression:',len(compressdicts))
+
+#compck(dicts, dimconlib)
