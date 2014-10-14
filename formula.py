@@ -95,6 +95,7 @@ class Formula(object):
             print(answer)
             return answer
 
+'''
 # initialize new formula
 a, b, c, A = symbols('a b c A')
 law_of_cos_eq = Eq(a**2, (b**2)+(c**2)-(2*b*c*cos(A)))
@@ -105,16 +106,27 @@ law_of_cos = Formula(law_of_cos_eq, law_of_cos_dict)
 
 # solve it
 law_of_cos.solvefor(a, 'm')
+'''
 
-
+'''
 ##### Soon these will be function to speed process further
 # creates symbols for equation
-#x, F, W = symbols('x F W')
+x, F, W = symbols('x F W')
 # makes equation
-#work_eq = Eq(x*F, W)
+work_eq = Eq(x*F, W)
 # dictionary attaches base-units to symbols
-#work_dict = {'x': (x, 'm'), 'F': (F, 'N'), 'W': (W, 'N*m')}
+work_dict = {'x': (x, 'm'), 'F': (F, 'N'), 'W': (W, 'N*m')}
 # equation and units linked together in Equation class
-#work = Formula(work_eq, work_dict)
+work = Formula(work_eq, work_dict)
 # solves equation for specified variable in desired units
 #work.solvefor(x, 'yard')
+'''
+
+'''
+K, m , v = symbols('K m v')
+kin_eq = Eq(K, 0.5*m*v**2)
+kin_dict = {'K': (K, 'J'), 'm': (m, 'kg'), 'v': (v, 'm/s')}
+kin = Formula(kin_eq, kin_dict)
+
+kin.solvefor(m, 'kg')
+'''
