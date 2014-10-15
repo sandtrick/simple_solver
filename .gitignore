@@ -8,4 +8,3 @@ Unit_Conversion.js
 
 # ignore the unit_test directory
 unit_tests/
-autosym.py
