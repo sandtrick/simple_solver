@@ -21,31 +21,6 @@ variable.
 Optional:
 * Prints solution in unicode
 
-
-### Questions to Answer
-
-* Can a dictionary be passed to a function?  
-* Can a dictionary be passed to a class?  
-> yes.
-* Can a SymPy Eq() be passed to a class?
-> yes.
-* Should there be a module with "completed" objects (equations)?  
-> This would be nice. A module of equation objects would relieve
-> the need to create them every time. It would also prove useful
-> in an off-line app.
-* What is NumPy and would it provide any tools to simplify this
-project? If so, how?
-* If a file is moved with "git mv" in one branch does git have
-any conflicts if that branch is then merged with the master?
-
-
-### Thoughts
-
-* It would be nice to have each equation as in instance
-of a class (object). Then each object can be cataloged
-for future use.
-* I need to learn how to create and use my own modules
-
 ## Table of contents
 
 | In No Particular Order |
