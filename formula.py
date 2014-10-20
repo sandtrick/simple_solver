@@ -89,10 +89,3 @@ class Formula(object):
             answer = ceil(1000*base_sol[0]/dimcon.dimconlib[get_units])/1000 # need to convert base_sol's list output to correct units
             print(answer)
             return answer
-
-# work
-work_dict = {'x': ['x', 'm'], 'F': ['F', 'N'],
- 'W': ['W', 'N*m']}
-work = Formula('W-x*F', work_dict)
-
-work.solvefor('W', 'N-m')
