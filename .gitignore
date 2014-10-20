@@ -8,3 +8,6 @@ Unit_Conversion.js
 
 # ignore the unit_test directory
 unit_tests/
+
+# ignore goals.md
+goals.md
