@@ -3,12 +3,12 @@ from math import ceil
 import dimcon
 
 class Formula(object):
-    no_inst = 0
-    in_dict = {}
+    no_inst = 0     # number of instances of the Equation class
+    in_dict = {}    # in_dict starts empty
     def __init__(self, streq, strdict):
         self.equation = self.mkeq(streq)
         self.eq_dict = self.mkdict(strdict)
-        Formula.no_inst = Formula.no_inst + 1     # number of instances of the Equation class
+        Formula.no_inst = Formula.no_inst + 1
 
     def mkeq(self, astr):
         expr = sympify(astr)    # turns streq into Sympy Eq()
