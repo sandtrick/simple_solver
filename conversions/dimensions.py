@@ -16,5 +16,5 @@ volume= Dimension(volume_dimcon, 'm^3')
 dimconlib = (acceleration, angle, area, energy, force, length, mass, pressure,
  time, velocity, volume)
 
-for i in dicts:
+for i in dimconlib:
     i.get_base()
