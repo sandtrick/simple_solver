@@ -84,8 +84,8 @@ class Formula(object):
             for key in self.eq_dict:
                 if key is not get:
                     sub_vals.append((self.eq_dict[key][0], self.in_dict[key][0]))
-            subd_eq = self.equation.subs(sub_vals)
+            subd_eq = self.equation.subs(sub_vals) # substituted all values for keys in in_dict
             base_sol = solve(subd_eq, get)
-            answer = ceil(1000*base_sol[0]/dimcon.dimconlib[get_units])/1000 # need to convert base_sol's list output to correct units
+            answer = ceil(1000*base_sol[0]/dimcon.dimconlib[get_units])/1000 # convert base_sol's list output to correct units
             print(answer)
             return answer
