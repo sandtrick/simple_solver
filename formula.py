@@ -1,6 +1,6 @@
 from sympy import *
 from math import ceil
-import dimcon
+import classes, conversions, dimensions
 
 class Formula(object):
     no_inst = 0     # number of instances of the Equation class
@@ -34,11 +34,6 @@ class Formula(object):
         # not needed for dropdown tabs
         pass
 
-    def check_dimcon(self, key):
-        # pass a key to to method and it checks the dimcon.dimcon_dict to see if it exists
-        # a class method?
-        pass
-
     def clear_inputs(self):
         self.in_dict = {}   # clears in_dict
         return self.in_dict
@@ -61,15 +56,15 @@ class Formula(object):
 
     def dimcon(self):
         for key in self.in_dict:
-            if self.in_dict[key][1] in dimcon.dimconlib:
-                self.in_dict[key][0] = self.in_dict[key][0]*dimcon.dimconlib[self.in_dict[key][1]]
+            if self.in_dict[key][1] in dimconlib:
+                self.in_dict[key][0] = self.in_dict[key][0]*dimconlib[self.in_dict[key][1]]
                 self.in_dict[key][1] = self.eq_dict[key][1]
             else:
                 print('Conversion not stored')
         return self.in_dict
 
     def solvefor(self, get, get_units):
-        if get_units not in dimcon.dimconlib:
+        if get_units not in dimconlib:
             print('Equati does not currently support the dimension: {}'.format(get_units))
         else:
             self.clear_inputs()
@@ -86,6 +81,9 @@ class Formula(object):
                     sub_vals.append((self.eq_dict[key][0], self.in_dict[key][0]))
             subd_eq = self.equation.subs(sub_vals) # substituted all values for keys in in_dict
             base_sol = solve(subd_eq, get)
-            answer = ceil(1000*base_sol[0]/dimcon.dimconlib[get_units])/1000 # convert base_sol's list output to correct units
+            answer = ceil(1000*base_sol[0]/dimconlib[get_units])/1000 # convert base_sol's list output to correct units
             print(answer)
             return answer
+
+work_dict = {'x': ['x', length], 'F': ['F', force], 'W': ['W', energy]}
+work = Formula('W-F*x', work_dict)
