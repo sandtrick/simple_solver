@@ -1,6 +1,6 @@
 from sympy import *
 import math
-from conversions.dimensions import dimconlib, acceleration, angle, area, energy, force, \
+from conversions.dimensions import acceleration, angle, area, energy, force, \
     length, mass, pressure, time, velocity, volume
 
 class Formula(object):
@@ -10,6 +10,7 @@ class Formula(object):
         self.equation = self.mkeq(streq)
         self.eq_dict = self.mkdict(strdict)
         self.libs = self.mklibs()
+        self.baselist = self.mkbaselist()
         Formula.no_inst = Formula.no_inst + 1
 
     def mkeq(self, astr):
@@ -27,6 +28,12 @@ class Formula(object):
             dictlist.append(self.eq_dict[i][1].dimdict)
         dimconlib = {k:v for d in dictlist for k, v in d.items()}
         return dimconlib
+
+    def mkbaselist(self):
+        baselist = []
+        for i in self.eq_dict:
+            baselist.append(self.eq_dict[i][1].base)
+        return baselist
 
     @classmethod
     def get_no_equations(cls):
@@ -63,20 +70,11 @@ class Formula(object):
         # use on a website
         pass
 
-    '''
-    make a list of bases
-    for key in self.in_dict:
-        if key matches any base:
-            use self.eq_dict[matched_base][1].dimdict
-        else:
-            print('conversion not stored')
-    '''
-
     def dimcon(self):
         for key in self.in_dict:
             if self.in_dict[key][1] in self.libs:
-                self.in_dict[key][0] = self.in_dict[key][0]*self.libs[self.in_dict[key][1]]
-                self.in_dict[key][1] = self.eq_dict[key][1]
+                self.in_dict[key][0] = self.in_dict[key][0]*self.eq_dict[key][1].dimdict[self.in_dict[key][1]]
+                self.in_dict[key][1] = self.eq_dict[key][1].base
             else:
                 print('Conversion not stored')
         return self.in_dict
@@ -102,8 +100,8 @@ class Formula(object):
             answer = math.ceil(1000*base_sol[0]/self.libs[get_units])/1000 # convert base_sol's list output to correct units
             print(answer)
             return answer
-
+'''
 work_dict = {'x': ['x', length], 'F': ['F', force], 'W': ['W', energy]}
 work = Formula('W-F*x', work_dict)
-
-work.solvefor('x', 'm')
+work.solvefor('W', 'kJ')
+'''
