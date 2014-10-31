@@ -1,6 +1,7 @@
 from sympy import *
 import math
-import classes, conversions, dimensions
+from conversions.dimensions import dimconlib, acceleration, angle, area, energy, force, \
+    length, mass, pressure, time, velocity, volume
 
 class Formula(object):
     no_inst = 0     # number of instances of the Equation class
@@ -8,6 +9,7 @@ class Formula(object):
     def __init__(self, streq, strdict):
         self.equation = self.mkeq(streq)
         self.eq_dict = self.mkdict(strdict)
+        self.libs = self.mklibs()
         Formula.no_inst = Formula.no_inst + 1
 
     def mkeq(self, astr):
@@ -18,6 +20,13 @@ class Formula(object):
         for i in adict:         # turns the first string of each dict value into a Symbol
             adict[i][0] = Symbol(adict[i][0])
         return adict
+
+    def mklibs(self):
+        dictlist = []
+        for i in self.eq_dict:
+            dictlist.append(self.eq_dict[i][1].dimdict)
+        dimconlib = {k:v for d in dictlist for k, v in d.items()}
+        return dimconlib
 
     @classmethod
     def get_no_equations(cls):
@@ -54,17 +63,26 @@ class Formula(object):
         # use on a website
         pass
 
+    '''
+    make a list of bases
+    for key in self.in_dict:
+        if key matches any base:
+            use self.eq_dict[matched_base][1].dimdict
+        else:
+            print('conversion not stored')
+    '''
+
     def dimcon(self):
         for key in self.in_dict:
-            if self.in_dict[key][1] in dimconlib:
-                self.in_dict[key][0] = self.in_dict[key][0]*dimconlib[self.in_dict[key][1]]
+            if self.in_dict[key][1] in self.libs:
+                self.in_dict[key][0] = self.in_dict[key][0]*self.libs[self.in_dict[key][1]]
                 self.in_dict[key][1] = self.eq_dict[key][1]
             else:
                 print('Conversion not stored')
         return self.in_dict
 
     def solvefor(self, get, get_units):
-        if get_units not in dimconlib:
+        if get_units not in self.libs:
             print('Equati does not currently support the dimension: {}'.format(get_units))
         else:
             self.clear_inputs()
@@ -81,9 +99,11 @@ class Formula(object):
                     sub_vals.append((self.eq_dict[key][0], self.in_dict[key][0]))
             subd_eq = self.equation.subs(sub_vals) # substituted all values for keys in in_dict
             base_sol = solve(subd_eq, get)
-            answer = math.ceil(1000*base_sol[0]/dimconlib[get_units])/1000 # convert base_sol's list output to correct units
+            answer = math.ceil(1000*base_sol[0]/self.libs[get_units])/1000 # convert base_sol's list output to correct units
             print(answer)
             return answer
 
 work_dict = {'x': ['x', length], 'F': ['F', force], 'W': ['W', energy]}
 work = Formula('W-F*x', work_dict)
+
+work.solvefor('x', 'm')

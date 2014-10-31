@@ -1,5 +1,24 @@
-from classes import Dimension
-from conversions import *
+from conversions.libraries import acceleration_dimcon, angle_dimcon, area_dimcon, energy_dimcon, \
+ force_dimcon, length_dimcon, mass_dimcon, pressure_dimcon, time_dimcon, \
+ velocity_dimcon, volume_dimcon
+
+class Dimension(object):
+    def __init__(self, dimdict, base):
+        self.dimdict = dimdict
+        self.base = base
+
+    def get_base(self):
+        print(self.base)
+        return self.base
+
+    def chk_dict(self, key):
+        if key in self.dimdict:
+            print('True')
+            return True
+        else:
+            print('False')
+            return False
+
 
 acceleration = Dimension(acceleration_dimcon, 'm/s^2')
 angle = Dimension(angle_dimcon, 'radian')
@@ -16,5 +35,8 @@ volume= Dimension(volume_dimcon, 'm^3')
 dimconlib = (acceleration, angle, area, energy, force, length, mass, pressure,
  time, velocity, volume)
 
+
+'''
 for i in dimconlib:
     i.get_base()
+'''
