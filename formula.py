@@ -1,7 +1,7 @@
 from sympy import *
 import math
 from conversions.dimensions import acceleration, angle, area, energy, force, \
-    length, mass, pressure, time, velocity, volume
+    length, mass, pressure, time, velocity, volume, density
 
 class Formula(object):
     no_inst = 0     # number of instances of the Equation class
@@ -21,6 +21,9 @@ class Formula(object):
         for i in adict:         # turns the first string of each dict value into a Symbol
             adict[i][0] = Symbol(adict[i][0])
         return adict
+
+    def show_eq(self):
+        print(self.equation)
 
     def mklibs(self):
         dictlist = []
@@ -101,7 +104,18 @@ class Formula(object):
             print(answer)
             return answer
 '''
+bern_dict = {'p1': ['p1', pressure],
+ 'rho': ['rho', density], 'z1': ['z1', length],
+ 'v1': ['v1', velocity], 'p2': ['p2', pressure],
+ 'z2': ['z2', length], 'v2': ['v2', velocity],
+ 'h_f': ['h_f', length], 'h_ff': ['h_ff', length],
+ 'h_pump': ['h_pump', length]}
+bern = Formula('p1/(rho*9.80665)+z1+v1**2/(2*9.80665)-p2/(rho*9.80665)-z2-v2**2/(2*9.80665)-h_f-h_ff+h_pump', bern_dict)
+#bern.solvefor('p1', 'N/m^2')
+bern.show_eq()
+'''
+
 work_dict = {'x': ['x', length], 'F': ['F', force], 'W': ['W', energy]}
 work = Formula('W-F*x', work_dict)
-work.solvefor('W', 'kJ')
-'''
+#work.solvefor('W', 'J')
+work.show_eq()
